@@ -193,6 +193,14 @@
       },
       "url": "https://packages.unity.com"
     },
+    "unity-assets-factory-kit": {
+      "version": "file:unity-assets-factory-kit",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.test-framework": "1.6.0"
+      }
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
