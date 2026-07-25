@@ -41,8 +41,7 @@ public class Mover_RigidBody_V1 : MonoBehaviour
         }
         
         float currentBoost = isBoosting ? _boostMultiplier : 1f;
-        if (_isGrounded)
-            MoveDirection = direction * (_baseForce * currentBoost);
+        MoveDirection = direction * (_baseForce * currentBoost);
     }
 
     private void FixedUpdate()
@@ -54,7 +53,8 @@ public class Mover_RigidBody_V1 : MonoBehaviour
             _isGrounded = false;
         }
         
-        _rbMover.AddForce(MoveDirection, ForceMode.Force);
+        if (_isGrounded)
+            _rbMover.AddForce(MoveDirection, ForceMode.Force);
         
         _isGrounded = false;
     }
