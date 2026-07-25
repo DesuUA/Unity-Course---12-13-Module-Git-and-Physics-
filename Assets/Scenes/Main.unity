@@ -1103,9 +1103,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192305444}
-  - component: {fileID: 192305445}
   m_Layer: 0
-  m_Name: PlatformMovingManager
+  m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1128,18 +1127,6 @@ Transform:
   - {fileID: 1521898343}
   m_Father: {fileID: 1721613877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &192305445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192305443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 882824c8487ed024bafa411d1bb5c5f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &214852670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5452,7 +5439,7 @@ Rigidbody:
   m_GameObject: {fileID: 1536470571}
   serializedVersion: 4
   m_Mass: 2
-  m_Drag: 2
+  m_Drag: 0.5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -5482,9 +5469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d631cfc68c036046b55d2484332001e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _baseForce: 12
-  _boostMultiplier: 2
-  _jumpForce: 15
+  _baseForce: 9
+  _boostMultiplier: 2.5
+  _jumpForce: 11
   _maxSlopeAngle: 50
 --- !u!1 &1591434175
 GameObject:
@@ -5600,6 +5587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1628841040}
+  - component: {fileID: 1628841041}
   m_Layer: 0
   m_Name: Platform Moving
   m_TagString: Untagged
@@ -5627,6 +5615,19 @@ Transform:
   - {fileID: 1277349367}
   m_Father: {fileID: 588350154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1628841041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628841039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553edabea4fd4e1ca16683bf629798c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
 --- !u!1001 &1634829233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6039,6 +6040,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721613877}
+  - component: {fileID: 1721613878}
   m_Layer: 0
   m_Name: Platform Moving Logic
   m_TagString: Untagged
@@ -6062,6 +6064,24 @@ Transform:
   - {fileID: 192305444}
   m_Father: {fileID: 588350154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1721613878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721613876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170d584159be41d9b880ae065b7b1c93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mover: {fileID: 1628841041}
+  _points:
+  - {fileID: 2061364598}
+  - {fileID: 1521898343}
+  _distanceThreshold: 0.1
+  _waitTime: 2
 --- !u!1001 &1748595171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6680,6 +6700,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 204349381690224623, guid: 71aeaf565adbd554caa51fcac0588acc, type: 3}
+      propertyPath: weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 204349381690224623, guid: 71aeaf565adbd554caa51fcac0588acc, type: 3}
+      propertyPath: m_IsGlobal
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3777021507784795182, guid: 71aeaf565adbd554caa51fcac0588acc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7649,7 +7677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4711686484900344624, guid: 11ca8b95cee8f4347bc5cb70d28cee45, type: 3}
       propertyPath: m_Intensity
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4711686484900344624, guid: 11ca8b95cee8f4347bc5cb70d28cee45, type: 3}
       propertyPath: m_BounceIntensity
