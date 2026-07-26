@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
-    public int СoinsOnScene { get; private set; }
-    public int СoinsCollected { get; private set; }
+    public int CoinsOnScene { get; private set; }
+    public int CoinsCollected { get; private set; }
 
-    private List<Coin> _coins = new List<Coin>();
+    private List<Coin> _allCoins = new List<Coin>();
+    private List<Coin> _activeCoins = new List<Coin>();
 
     private void Start()
     {
-        Coin[] foundCoins = GetComponentsInChildren<Coin>(true);
+        _allCoins.AddRange(GetComponentsInChildren<Coin>(true));
 
-        _coins.AddRange(foundCoins);
-
-        СoinsOnScene = _coins.Count;
+        RestartAllCoins();
     }
 
     private void Update()
     {
-        for (int i = _coins.Count - 1; i >= 0; i--)
+        if (CoinsOnScene <= 0)
+            return;
+        
+        for (int i = _activeCoins.Count - 1; i >= 0; i--)
         {
-            if (_coins[i] && _coins[i].gameObject.activeSelf == false)
+            if (_activeCoins[i].gameObject.activeSelf == false)
             {
-                _coins.RemoveAt(i);
+                _activeCoins.RemoveAt(i);
                 
-                СoinsOnScene = _coins.Count;
-                
-                СoinsCollected++;
+                CoinsOnScene--;
+                CoinsCollected++;
             }
         }
+    }
+    
+    public void RestartAllCoins()
+    {
+        _activeCoins.Clear();
+        
+        foreach (Coin coin in _allCoins)
+        {
+            coin.gameObject.SetActive(true);
+            _activeCoins.Add(coin);
+        }
+        
+        CoinsOnScene = _allCoins.Count;
+        CoinsCollected = 0;
     }
 }
