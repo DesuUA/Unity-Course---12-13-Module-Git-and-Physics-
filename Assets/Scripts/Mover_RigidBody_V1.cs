@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Mover_RigidBody_V1 : MonoBehaviour
@@ -14,12 +13,18 @@ public class Mover_RigidBody_V1 : MonoBehaviour
     [Range(0f, 89f)] 
     [SerializeField] private float _maxSlopeAngle = 50f;
     
+    [Header("Disable options")]
+    [Tooltip("Colliders tags to disable movement")]
+    [SerializeField] private string _disableTag = "Movable Table";
+
+    
     private float _minGroundNormalY = 0.6f;
 
     private Rigidbody _rbMover;
-    private Vector3 _jumpDirection = Vector3.up;
-    private bool _jumpRequest = false;
-    private bool _isGrounded = false;
+    private readonly Vector3 _jumpDirection = Vector3.up;
+    private bool _jumpRequest;
+    private bool _isGrounded;
+    private bool _disabled;
     
     public Vector3 MoveDirection { get; private set; }
 
@@ -46,6 +51,9 @@ public class Mover_RigidBody_V1 : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_disabled)
+            return;
+        
         if (_jumpRequest)
         {
             _rbMover.AddForce(_jumpDirection * _jumpForce, ForceMode.Impulse);
@@ -69,6 +77,22 @@ public class Mover_RigidBody_V1 : MonoBehaviour
             {
                 _isGrounded = true;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(_disableTag))
+        {
+            _disabled = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(_disableTag))
+        {
+            _disabled = false;
         }
     }
 }

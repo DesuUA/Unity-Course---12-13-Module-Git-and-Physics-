@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private CoinManager _coinManager;
+    [SerializeField] private MovableTable _movableTable;
+    
     [SerializeField] private float _gameTime = 60f;
     [SerializeField] private KeyCode _restartGameKey = KeyCode.R;
 
@@ -22,6 +24,9 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
+        if (_movableTable.Enabled)
+            GameProcess = false;
+        
         if (Input.GetKeyDown(_restartGameKey))
             RestartGame();
 
